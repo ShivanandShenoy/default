@@ -7,7 +7,7 @@ cube(`EnergyKPIs`, {
   measures: {
     // Total Pipeline
     totalPipeline: {
-      sql: `solar_capacity`,
+      sql: `bess_storage_capacity`,
       type: `sum`,
       title: `Total Pipeline (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE filter = 'true')` }],
@@ -16,28 +16,28 @@ cube(`EnergyKPIs`, {
 
     // Project Stages
     totalInOperation: {
-      sql: `solar_capacity`,
+      sql: `bess_storage_capacity`,
       type: `sum`,
       title: `Total In-Operation (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'In-Operation')` }],
     },
 
     preConstruction: {
-      sql: `solar_capacity`,
+      sql: `bess_storage_capacity`,
       type: `sum`,
       title: `Pre Construction (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Pre Construction')` }],
     },
 
     underDevelopment: {
-      sql: `solar_capacity`,
+      sql: `bess_storage_capacity`,
       type: `sum`,
       title: `Under Development (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Development')` }],
     },
 
     underConstructionCapacity: {
-      sql: `solar_capacity`,
+      sql: `bess_storage_capacity`,
       type: `sum`,
       title: `Under Construction (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Construction')` }],
@@ -45,7 +45,7 @@ cube(`EnergyKPIs`, {
 
     // Project Categories by Status
     centralInOperation: {
-      sql: `solar_capacity`,
+      sql: `bess_storage_capacity`,
       type: `sum`,
       title: `Central In-Operation (MW)`,
       filters: [
@@ -56,7 +56,7 @@ cube(`EnergyKPIs`, {
     },
 
     openAccessInOperation: {
-      sql: `solar_capacity`,
+      sql: `bess_storage_capacity`,
       type: `sum`,
       title: `Open Access In-Operation (MW)`,
       filters: [
@@ -67,7 +67,7 @@ cube(`EnergyKPIs`, {
     },
 
     stateInOperation: {
-      sql: `solar_capacity`,
+      sql: `bess_storage_capacity`,
       type: `sum`,
       title: `State In-Operation (MW)`,
       filters: [
@@ -81,18 +81,18 @@ cube(`EnergyKPIs`, {
     weeklyGrowth: {
       sql: `
         CASE 
-          WHEN (SELECT SUM(solar_capacity) 
+          WHEN (SELECT SUM(bess_storage_capacity) 
                 FROM public.solar_chart_view 
                 WHERE commisioned_date >= CURRENT_DATE - INTERVAL '14 days' 
                   AND commisioned_date < CURRENT_DATE - INTERVAL '7 days') > 0
-          THEN ((SELECT SUM(solar_capacity) 
+          THEN ((SELECT SUM(bess_storage_capacity) 
                  FROM public.solar_chart_view 
                  WHERE commisioned_date >= CURRENT_DATE - INTERVAL '7 days') - 
-                (SELECT SUM(solar_capacity) 
+                (SELECT SUM(bess_storage_capacity) 
                  FROM public.solar_chart_view 
                  WHERE commisioned_date >= CURRENT_DATE - INTERVAL '14 days' 
                    AND commisioned_date < CURRENT_DATE - INTERVAL '7 days')) * 100.0 / 
-                (SELECT SUM(solar_capacity) 
+                (SELECT SUM(bess_storage_capacity) 
                  FROM public.solar_chart_view 
                  WHERE commisioned_date >= CURRENT_DATE - INTERVAL '14 days' 
                    AND commisioned_date < CURRENT_DATE - INTERVAL '7 days')

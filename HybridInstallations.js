@@ -154,7 +154,7 @@ cube(`HybridInstallations`, {
     },
 
     totalCapacity: {
-      sql: `solar_capacity`,
+      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `sum`,
       title: `Total Solar Capacity (MW)`,
       format: `number`,
@@ -162,21 +162,21 @@ cube(`HybridInstallations`, {
     },
 
     averageCapacity: {
-      sql: `solar_capacity`,
+      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `avg`,
       title: `Average Project Capacity (MW)`,
       format: `number`,
     },
 
     maxCapacity: {
-      sql: `solar_capacity`,
+      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `max`,
       title: `Largest Project Capacity (MW)`,
       format: `number`,
     },
 
     minCapacity: {
-      sql: `solar_capacity`,
+      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `min`,
       title: `Smallest Project Capacity (MW)`,
       format: `number`,
@@ -211,14 +211,14 @@ cube(`HybridInstallations`, {
     },
 
     completedCapacity: {
-      sql: `solar_capacity`,
+      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `sum`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'In-Operation')` }],
       title: `In-Operation Capacity (MW)`,
     },
 
     underConstructionCapacity: {
-      sql: `solar_capacity`,
+      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `sum`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Construction')` }],
       title: `Under Construction Capacity (MW)`,
@@ -232,7 +232,7 @@ cube(`HybridInstallations`, {
     },
 
     preConstructionCapacity: {
-      sql: `solar_capacity`,
+      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `sum`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Pre Construction')` }],
       title: `Pre Construction Capacity (MW)`,
@@ -245,7 +245,7 @@ cube(`HybridInstallations`, {
     },
 
     underDevelopmentCapacity: {
-      sql: `solar_capacity`,
+      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `sum`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Development')` }],
       title: `Under Development Capacity (MW)`,
@@ -270,15 +270,15 @@ cube(`HybridInstallations`, {
     },
 
     largeScale: {
-      sql: `${CUBE}.solar_capacity >= 100`,
+      sql: `${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity >= 100`,
     },
 
     mediumScale: {
-      sql: `${CUBE}.solar_capacity >= 10 AND ${CUBE}.solar_capacity < 100`,
+      sql: `${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity >= 10 AND ${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity < 100`,
     },
 
     smallScale: {
-      sql: `${CUBE}.solar_capacity < 10`,
+      sql: `${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity < 10`,
     },
 
     solarOnly: {
