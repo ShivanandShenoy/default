@@ -59,12 +59,6 @@ cube(`ProjectTrackerMaster`, {
       title: `Park ID`,
     },
 
-    projectName: {
-      sql: `${CUBE}.project_name`,
-      type: `string`,
-      title: `Project Name`,
-    },
-
     // Location
     location: {
       sql: `location`,

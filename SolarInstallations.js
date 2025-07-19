@@ -127,12 +127,6 @@ cube(`SolarInstallations`, {
       title: `Location`,
     },
 
-    project_name: {
-      sql: `${CUBE}.project_name`,
-      type: `string`,
-      title: `Project Name`,
-    },
-
     // Derived dimensions for better analysis
     commissioning_year: {
       sql: `EXTRACT(YEAR FROM ${CUBE}.commisioned_date)`,

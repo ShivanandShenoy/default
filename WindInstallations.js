@@ -1,26 +1,25 @@
-cube(`HybridInstallations`, {
+cube(`WindInstallations`, {
   sql: `
     SELECT *
-    FROM public.project_tracker_masters
+    FROM public.wind_trackers
     WHERE status_id IN (
       SELECT id FROM public.statuses WHERE filter = true
     ) and project_type_id IN (
       SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
       JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
-      AND sub_tracker_masters.name = 'Hybrid Projects'
+      AND sub_tracker_masters.name = 'Wind'
     )
   `,
-  // sql_table: `public.solar_wind_hybrid_chart_view`,
 
   data_source: `default`,
-
-  title: `Hybrid Installations`,
-  description: `Hybrid installation projects with capacity, status, and location information`,
+// id, entry_date, status_id, analyst_id, acquired_projects, developer_id, company_id, project_id, park_id, location, district_id, state_id, project_type_id, wind_capacity_mw, repowered_projects, hybrid_project_breakdown, policy_type_id, tender_scheme_id, project_category_id, oa_id, commissioned_date, estimated_scod, loa, auction_date, ppa, psa, financial_closure, tariff, adopted_tariff_by_commission, project_cost, offtaker_type, offtaker, substation_place_id, connectivity_level_kv, hub_height_m, rotor_diameter_m, turbine_size_mw, turbine_supplier_id, epc_id, om_id, funding_groups_investors_id, last_call, additional_comments, contact_name, contact_number, link_1, link_2, additional
+  title: `Wind Installations`,
+  description: `Wind installation projects with capacity, status, and location information`,
 
   joins: {
     States: {
       relationship: `belongsTo`,
-      sql: `${CUBE}.solar_state_id = ${States}.id`
+      sql: `${CUBE}.state_id = ${States}.id`
     },
     
     Status: {
@@ -60,7 +59,7 @@ cube(`HybridInstallations`, {
     },
 
     commissioning_date: {
-      sql: `${CUBE}.commisioned_date`,
+      sql: `${CUBE}.commissioned_date`,
       type: `time`,
       title: `Commissioning Date`,
     },
@@ -102,13 +101,13 @@ cube(`HybridInstallations`, {
     },
 
     stateId: {
-      sql: `solar_state_id`,
+      sql: `state_id`,
       type: `number`,
       title: `State ID`,
     },
 
     state: {
-      sql: `(SELECT name FROM public.states WHERE id = ${CUBE}.solar_state_id)`,
+      sql: `(SELECT name FROM public.states WHERE id = ${CUBE}.state_id)`,
       type: `string`,
       title: `State`,
     },
@@ -121,22 +120,21 @@ cube(`HybridInstallations`, {
       title: `Location`,
     },
 
-
     // Derived dimensions for better analysis
     commissioning_year: {
-      sql: `EXTRACT(YEAR FROM ${CUBE}.commisioned_date)`,
+      sql: `EXTRACT(YEAR FROM ${CUBE}.commissioned_date)`,
       type: `number`,
       title: `Commissioning Year`,
     },
 
     commissioning_quarter: {
-      sql: `EXTRACT(QUARTER FROM ${CUBE}.commisioned_date)`,
+      sql: `EXTRACT(QUARTER FROM ${CUBE}.commissioned_date)`,
       type: `string`,
       title: `Commissioning Quarter`,
     },
 
     commissioning_month: {
-      sql: `TO_CHAR(${CUBE}.commisioned_date, 'YYYY-MM')`,
+      sql: `TO_CHAR(${CUBE}.commissioned_date, 'YYYY-MM')`,
       type: `string`,
       title: `Commissioning Month`,
     },
@@ -149,29 +147,29 @@ cube(`HybridInstallations`, {
     },
 
     totalCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `wind_capacity_mw`,
       type: `sum`,
-      title: `Total Solar Capacity (MW)`,
+      title: `Total Wind Capacity (MW)`,
       format: `number`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE filter = 'true')` }],
     },
 
     averageCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `wind_capacity_mw`,
       type: `avg`,
       title: `Average Project Capacity (MW)`,
       format: `number`,
     },
 
     maxCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `wind_capacity_mw`,
       type: `max`,
       title: `Largest Project Capacity (MW)`,
       format: `number`,
     },
 
     minCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `wind_capacity_mw`,
       type: `min`,
       title: `Smallest Project Capacity (MW)`,
       format: `number`,
@@ -182,13 +180,6 @@ cube(`HybridInstallations`, {
       sql: `wind_capacity`,
       type: `sum`,
       title: `Total Wind Capacity (MW)`,
-      format: `number`,
-    },
-
-    bessCapacity: {
-      sql: `bess_storage_capacity`,
-      type: `sum`,
-      title: `Total BESS Storage Capacity (MWh)`,
       format: `number`,
     },
 
@@ -206,14 +197,14 @@ cube(`HybridInstallations`, {
     },
 
     completedCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `wind_capacity_mw`,
       type: `sum`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'In-Operation')` }],
       title: `In-Operation Capacity (MW)`,
     },
 
     underConstructionCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `wind_capacity_mw`,
       type: `sum`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Construction')` }],
       title: `Under Construction Capacity (MW)`,
@@ -227,7 +218,7 @@ cube(`HybridInstallations`, {
     },
 
     preConstructionCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `wind_capacity_mw`,
       type: `sum`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Pre Construction')` }],
       title: `Pre Construction Capacity (MW)`,
@@ -240,7 +231,7 @@ cube(`HybridInstallations`, {
     },
 
     underDevelopmentCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `wind_capacity_mw`,
       type: `sum`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Development')` }],
       title: `Under Development Capacity (MW)`,
@@ -265,42 +256,35 @@ cube(`HybridInstallations`, {
     },
 
     largeScale: {
-      sql: `${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity >= 100`,
+      sql: `${CUBE}.wind_capacity_mw >= 100`,
     },
 
     mediumScale: {
-      sql: `${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity >= 10 AND ${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity < 100`,
+      sql: `${CUBE}.wind_capacity_mw >= 10 AND ${CUBE}.wind_capacity_mw < 100`,
     },
 
     smallScale: {
-      sql: `${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity < 10`,
+      sql: `${CUBE}.wind_capacity_mw < 10`,
     },
 
-    solarOnly: {
-      sql: `${CUBE}.solar_capacity > 0 AND COALESCE(${CUBE}.wind_capacity, 0) = 0`,
-    },
-
-    hybrid: {
-      sql: `${CUBE}.solar_capacity > 0 AND ${CUBE}.wind_capacity > 0`,
-    },
   },
 
   pre_aggregations: {
     monthlyRollup: {
       measures: [
-        HybridInstallations.count,
-        HybridInstallations.totalCapacity,
-        HybridInstallations.completedProjects,
-        HybridInstallations.underConstructionProjects,
-        HybridInstallations.preConstructionProjects,
-        HybridInstallations.underDevelopmentProjects,
+        WindInstallations.count,
+        WindInstallations.totalCapacity,
+        WindInstallations.completedProjects,
+        WindInstallations.underConstructionProjects,
+        WindInstallations.preConstructionProjects,
+        WindInstallations.underDevelopmentProjects,
       ],
       dimensions: [
-        HybridInstallations.state,
-        HybridInstallations.statusId,
-        HybridInstallations.commissioning_month,
+        WindInstallations.state,
+        WindInstallations.statusId,
+        WindInstallations.commissioning_month,
       ],
-      timeDimension: HybridInstallations.commissioning_date,
+      timeDimension: WindInstallations.commissioning_date,
       granularity: `month`,
       partitionGranularity: `year`,
       refreshKey: {
@@ -310,18 +294,18 @@ cube(`HybridInstallations`, {
 
     stateRollup: {
       measures: [
-        HybridInstallations.count,
-        HybridInstallations.totalCapacity,
-        HybridInstallations.averageCapacity,
-        HybridInstallations.completedCapacity,
-        HybridInstallations.underConstructionCapacity,
-        HybridInstallations.preConstructionCapacity,
-        HybridInstallations.underDevelopmentCapacity,
+        WindInstallations.count,
+        WindInstallations.totalCapacity,
+        WindInstallations.averageCapacity,
+        WindInstallations.completedCapacity,
+        WindInstallations.underConstructionCapacity,
+        WindInstallations.preConstructionCapacity,
+        WindInstallations.underDevelopmentCapacity,
       ],
       dimensions: [
-        HybridInstallations.state,
-        HybridInstallations.statusId,
-        HybridInstallations.projectTypeId,
+        WindInstallations.state,
+        WindInstallations.statusId,
+        WindInstallations.projectTypeId,
       ],
       refreshKey: {
         every: `1 hour`,
@@ -330,14 +314,14 @@ cube(`HybridInstallations`, {
 
     developerRollup: {
       measures: [
-        HybridInstallations.count,
-        HybridInstallations.totalCapacity,
-        HybridInstallations.completedProjects,
-        HybridInstallations.underConstructionProjects,
+        WindInstallations.count,
+        WindInstallations.totalCapacity,
+        WindInstallations.completedProjects,
+        WindInstallations.underConstructionProjects,
       ],
       dimensions: [
-        HybridInstallations.developer,
-        HybridInstallations.status,
+        WindInstallations.developer,
+        WindInstallations.status,
       ],
       refreshKey: {
         every: `1 hour`,
