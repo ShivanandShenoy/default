@@ -85,7 +85,7 @@ cube(`StatePVOverview`, {
    segments: {
     latestQuarter: {
       sql: `(year, quarter) = (
-            SELECT year, quarter FROM power_mixes ORDER BY year DESC, quarter DESC LIMIT 1
+            SELECT year, quarter FROM state_pv_overviews ORDER BY year DESC, quarter DESC LIMIT 1
            )`,
     }
   }
