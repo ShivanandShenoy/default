@@ -171,7 +171,7 @@ cube(`SolarInstallations`, {
     },
 
     filterDeveloper: {
-      sql: `(SELECT name FROM public.firms WHERE id = ${CUBE}.developer_id AND ${CUBE}.developer_id ORDER BY name ASC)`,
+      sql: `(SELECT name FROM public.firms WHERE id = ${CUBE}.developer_id ORDER BY name ASC)`,
       type: `string`,
       title: `Filter Developer`,
     },
