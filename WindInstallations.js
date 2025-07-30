@@ -37,6 +37,7 @@ cube(`WindInstallations`, {
       sql: `${CUBE}.project_category_id = ${ProjectCategory}.id`
     },
     
+   
   },
 
   dimensions: {
@@ -44,6 +45,36 @@ cube(`WindInstallations`, {
       sql: `id`,
       type: `number`,
       primary_key: true,
+    },
+     // chart filters
+    filterStatus: {
+      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id AND filter = true ORDER BY name ASC)`,
+      type: `string`,
+      title: `Filter Status`,
+    },
+
+    filterState: {
+      sql: `(SELECT name FROM public.states WHERE id = ${CUBE}.state_id ORDER BY name ASC)`,
+      type: `string`,
+      title: `Filter State`,
+    },
+
+    filterProjectCategory: {
+      sql: `(SELECT name FROM public.project_categories WHERE id = ${CUBE}.project_category_id ORDER BY name ASC)`,
+      type: `string`,
+      title: `Filter Project Category`,
+    },
+
+    filterProjectType: {
+      sql: `(SELECT name FROM public.project_types WHERE id = ${CUBE}.project_type_id ORDER BY name ASC)`,
+      type: `string`,
+      title: `Filter Project Type`,
+    },
+
+    filterDeveloper: {
+      sql: `(SELECT name FROM public.firms WHERE id = ${CUBE}.developer_id ORDER BY name ASC)`,
+      type: `string`,
+      title: `Filter Developer`,
     },
 
     statusId: {
@@ -146,6 +177,19 @@ cube(`WindInstallations`, {
       title: `Number of Projects`,
     },
 
+    // filter measures
+    filterCommissioningYearStart: {
+      sql: `MIN(${CUBE}.commissioned_date)`,
+      type: `time`,
+      title: `Filter Commissioning Year Start`,
+    },
+
+    filterCommissioningYearEnd: {
+      sql: `MAX(${CUBE}.commissioned_date)`,
+      type: `time`,
+      title: `Filter Commissioning Year End`,
+    },
+    
     totalCapacity: {
       sql: `wind_capacity_mw`,
       type: `sum`,
