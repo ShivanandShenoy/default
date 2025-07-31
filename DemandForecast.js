@@ -91,7 +91,14 @@ cube(`DemandForecast`, {
       sql: `CAST(CONCAT(${CUBE}.year, '-01-01') AS DATE)`,
       type: `time`,
       title: `Year Date`
-    }
+    },
+
+    // chart filters
+    filterYears: {
+      sql: `(SELECT year FROM public.states WHERE id = ${CUBE}.state_id ORDER BY name ASC)`,
+      type: `string`,
+      title: `Filter State`,
+    }, 
   },
   
   measures: {

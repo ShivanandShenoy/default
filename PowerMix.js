@@ -1,15 +1,15 @@
 cube(`PowerMix`, {
   sql_table: `public.power_mixes`,
-  
+
   data_source: `default`,
-  
+
   title: `Power Generation Mix`,
   description: `State-wise energy generation mix by quarter across different power sources`,
 
   joins: {
     States: {
       relationship: `belongsTo`,
-      sql: `${CUBE}.state_id = ${States}.id`
+      sql: `${CUBE}.state_id = ${States}.id`,
     },
   },
 
@@ -41,70 +41,70 @@ cube(`PowerMix`, {
     },
 
     coal: {
-    sql: `coal`,
-    type: `number`,
-    title: `Coal`
-  },
-  lignite: {
-    sql: `lignite`,
-    type: `number`,
-    title: `Lignite`
-  },
-  gas: {
-    sql: `gas`,
-    type: `number`,
-    title: `Gas`
-  },
-  diesel: {
-    sql: `diesel`,
-    type: `number`,
-    title: `Diesel`
-  },
-  nuclear: {
-    sql: `nuclear`,
-    type: `number`,
-    title: `Nuclear`
-  },
-  hydro: {
-    sql: `hydro`,
-    type: `number`,
-    title: `Hydro`
-  },
-  wind: {
-    sql: `wind`,
-    type: `number`,
-    title: `Wind`
-  },
-  largeScaleSolar: {
-    sql: `large_scale_solar`,
-    type: `number`,
-    title: `Large Scale Solar`
-  },
-  rooftopSolar: {
-    sql: `rooftop_solar`,
-    type: `number`,
-    title: `Rooftop Solar`
-  },
-  smallHydro: {
-    sql: `small_hydro`,
-    type: `number`,
-    title: `Small Hydro`
-  },
-  bagasseCoGen: {
-    sql: `bagasse_co_gen`,
-    type: `number`,
-    title: `Bagasse Co-gen`
-  },
-  nonBagasseCaptive: {
-    sql: `non_bagasse_captive`,
-    type: `number`,
-    title: `Non-Bagasse Captive`
-  },
-  wasteToEnergy: {
-    sql: `waste_to_energy`,
-    type: `number`,
-    title: `Waste to Energy`
-  },
+      sql: `coal`,
+      type: `number`,
+      title: `Coal`,
+    },
+    lignite: {
+      sql: `lignite`,
+      type: `number`,
+      title: `Lignite`,
+    },
+    gas: {
+      sql: `gas`,
+      type: `number`,
+      title: `Gas`,
+    },
+    diesel: {
+      sql: `diesel`,
+      type: `number`,
+      title: `Diesel`,
+    },
+    nuclear: {
+      sql: `nuclear`,
+      type: `number`,
+      title: `Nuclear`,
+    },
+    hydro: {
+      sql: `hydro`,
+      type: `number`,
+      title: `Hydro`,
+    },
+    wind: {
+      sql: `wind`,
+      type: `number`,
+      title: `Wind`,
+    },
+    largeScaleSolar: {
+      sql: `large_scale_solar`,
+      type: `number`,
+      title: `Large Scale Solar`,
+    },
+    rooftopSolar: {
+      sql: `rooftop_solar`,
+      type: `number`,
+      title: `Rooftop Solar`,
+    },
+    smallHydro: {
+      sql: `small_hydro`,
+      type: `number`,
+      title: `Small Hydro`,
+    },
+    bagasseCoGen: {
+      sql: `bagasse_co_gen`,
+      type: `number`,
+      title: `Bagasse Co-gen`,
+    },
+    nonBagasseCaptive: {
+      sql: `non_bagasse_captive`,
+      type: `number`,
+      title: `Non-Bagasse Captive`,
+    },
+    wasteToEnergy: {
+      sql: `waste_to_energy`,
+      type: `number`,
+      title: `Waste to Energy`,
+    },
 
     yearQuarter: {
       sql: `CONCAT(${CUBE}.year, '-Q', ${CUBE}.quarter)`,
@@ -133,6 +133,27 @@ cube(`PowerMix`, {
       `,
       type: `string`,
       title: `Source Category`,
+    },
+
+    // chart filters
+    filterState: {
+      sql: `(SELECT name FROM public.states WHERE id = ${CUBE}.state_id ORDER BY name ASC)`,
+      type: `string`,
+      title: `Filter State`,
+    },
+
+    filterYearQuarter: {
+      sql: `(SELECT 
+  CONCAT(start_year, '-', start_quarter, '-', end_year, '-', end_quarter) AS range
+FROM (
+  SELECT 
+    (SELECT year FROM power_mixes ORDER BY year ASC, quarter ASC LIMIT 1) AS start_year,
+    (SELECT quarter FROM power_mixes ORDER BY year ASC, quarter ASC LIMIT 1) AS start_quarter,
+    (SELECT year FROM power_mixes ORDER BY year DESC, quarter DESC LIMIT 1) AS end_year,
+    (SELECT quarter FROM power_mixes ORDER BY year DESC, quarter DESC LIMIT 1) AS end_quarter
+) AS sub)`,
+      type : `string`,
+      title: `Filter Year Quarter Start`,
     },
   },
 
@@ -342,7 +363,7 @@ cube(`PowerMix`, {
   },
 
   segments: {
-     latestQuarter: {
+    latestQuarter: {
       sql: `(year, quarter) = (
             SELECT year, quarter FROM power_mixes ORDER BY year DESC, quarter DESC LIMIT 1
            )`,
@@ -382,10 +403,7 @@ cube(`PowerMix`, {
         PowerMix.windGeneration,
         PowerMix.renewablePercentage,
       ],
-      dimensions: [
-        PowerMix.stateId,
-        PowerMix.yearQuarter,
-      ],
+      dimensions: [PowerMix.stateId, PowerMix.yearQuarter],
       timeDimension: PowerMix.quarterDate,
       granularity: `quarter`,
       partitionGranularity: `year`,
@@ -427,10 +445,7 @@ cube(`PowerMix`, {
         PowerMix.wasteToEnergyGeneration,
         PowerMix.nonBagasseCaptiveGeneration,
       ],
-      dimensions: [
-        PowerMix.stateId,
-        PowerMix.yearQuarter,
-      ],
+      dimensions: [PowerMix.stateId, PowerMix.yearQuarter],
       refreshKey: {
         every: `1 hour`,
       },
