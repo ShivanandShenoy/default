@@ -21,11 +21,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           # Using "." copies everything; the action overwrites files with the same name
-          source: |
-            ./*
-            .[^.]*
-            !.git/**
-            !.github/**
+          source: ".js"
           target: "/opt/deployment/mercom-cube/model/default"
           # Optional quality-of-life flags:
           # rm: false                  # set true to wipe target before upload (more destructive)
