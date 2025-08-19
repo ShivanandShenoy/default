@@ -2,7 +2,7 @@ name: Deploy root-level JS files to Ubuntu VM
 
 on:
   push:
-    branches: [ main ]
+    branches: [ deploy-to-prod ]
   workflow_dispatch:
 
 jobs:
