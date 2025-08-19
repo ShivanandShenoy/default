@@ -1,5 +1,5 @@
 cube(`ElectrolyzerKPIs`, {
-  extends: ElectrolyzerInstallations,
+  extends: ElectrolyzerInstallations1,
 
   title: `Electrolyzer KPIs`,
   description: `Key Performance Indicators for Electrolyzer Installations`,
