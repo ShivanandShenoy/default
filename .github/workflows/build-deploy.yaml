@@ -13,7 +13,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Deploy to Ubuntu VM via SCP (overwrite same-named files)
+      - name: Deploy to Ubuntu VM via SCP 
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -21,7 +21,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           # Using "." copies everything; the action overwrites files with the same name
-          source: ".js"
+          source: |
+            **/*.js
           target: "/opt/deployment/mercom-cube/model/default"
           # Optional quality-of-life flags:
           # rm: false                  # set true to wipe target before upload (more destructive)
