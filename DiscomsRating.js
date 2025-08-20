@@ -1,5 +1,6 @@
 cube(`DiscomsRating`, {
-  sql_table: `public.discoms_rating`,
+  // sql_table: `public.discoms_rating`,
+  sql_table: `vw_discomsrating_${COMPILE_CONTEXT.securityContext.tenant_id}`,
   
   data_source: `default`,
   

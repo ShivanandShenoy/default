@@ -1,15 +1,16 @@
 cube(`WindInstallations`, {
-  sql: `
-    SELECT *
-    FROM public.wind_trackers
-    WHERE status_id IN (
-      SELECT id FROM public.statuses WHERE filter = true
-    ) and project_type_id IN (
-      SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
-      JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
-      AND sub_tracker_masters.name = 'Wind'
-    )
-  `,
+  // sql: `
+  //   SELECT *
+  //   FROM public.wind_trackers
+  //   WHERE status_id IN (
+  //     SELECT id FROM public.statuses WHERE filter = true
+  //   ) and project_type_id IN (
+  //     SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
+  //     JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
+  //     AND sub_tracker_masters.name = 'Wind'
+  //   )
+  // `,
+sql_table: `vw_windinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`,
 
   data_source: `default`,
 // id, entry_date, status_id, analyst_id, acquired_projects, developer_id, company_id, project_id, park_id, location, district_id, state_id, project_type_id, wind_capacity_mw, repowered_projects, hybrid_project_breakdown, policy_type_id, tender_scheme_id, project_category_id, oa_id, commissioned_date, estimated_scod, loa, auction_date, ppa, psa, financial_closure, tariff, adopted_tariff_by_commission, project_cost, offtaker_type, offtaker, substation_place_id, connectivity_level_kv, hub_height_m, rotor_diameter_m, turbine_size_mw, turbine_supplier_id, epc_id, om_id, funding_groups_investors_id, last_call, additional_comments, contact_name, contact_number, link_1, link_2, additional

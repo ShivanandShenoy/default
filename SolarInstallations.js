@@ -1,21 +1,21 @@
 cube(`SolarInstallations`, {
-  sql: `
-    SELECT *
-    FROM public.project_tracker_masters
-    WHERE status_id IN (
-      SELECT id FROM public.statuses WHERE filter = true
-    ) and project_type_id IN (
-      SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
-      JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
-      AND sub_tracker_masters.name = 'Large Scale Solar'
-    )
-  `,
+  // sql: `
+  //   SELECT *
+  //   FROM public.project_tracker_masters
+  //   WHERE status_id IN (
+  //     SELECT id FROM public.statuses WHERE filter = true
+  //   ) and project_type_id IN (
+  //     SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
+  //     JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
+  //     AND sub_tracker_masters.name = 'Large Scale Solar'
+  //   )
+  // `,
   // cube.js code
   // contextToAppId: ({ securityContext }) => {
   //   return `CUBE_APP_${securityContext.tenant_id}`
   // }
   // cube.js
-  // sql_table: `project_tracker_${COMPILE_CONTEXT.securityContext.tenant_id}`,
+  sql_table: `vw_solarinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`,
   // sql_table: `public.solar_wind_hybrid_chart_view`,
 
   data_source: `default`,
@@ -23,28 +23,28 @@ cube(`SolarInstallations`, {
   title: `Solar Installations`,
   description: `Solar installation projects with capacity, status, and location information`,
 
-  joins: {
-    States: {
-      relationship: `belongsTo`,
-      sql: `${CUBE}.solar_state_id = ${States}.id`
-    },
+  // joins: {
+  //   States: {
+  //     relationship: `belongsTo`,
+  //     sql: `${CUBE}.solar_state_id = ${States}.id`
+  //   },
     
-    Status: {
-      relationship: `belongsTo`,
-      sql: `${CUBE}.status_id = ${Status}.id`
-    },
+  //   Status: {
+  //     relationship: `belongsTo`,
+  //     sql: `${CUBE}.status_id = ${Status}.id`
+  //   },
     
-    ProjectType: {
-      relationship: `belongsTo`,
-      sql: `${CUBE}.project_type_id = ${ProjectType}.id`
-    },
+  //   ProjectType: {
+  //     relationship: `belongsTo`,
+  //     sql: `${CUBE}.project_type_id = ${ProjectType}.id`
+  //   },
     
-    ProjectCategory: {
-      relationship: `belongsTo`,
-      sql: `${CUBE}.project_category_id = ${ProjectCategory}.id`
-    },
+  //   ProjectCategory: {
+  //     relationship: `belongsTo`,
+  //     sql: `${CUBE}.project_category_id = ${ProjectCategory}.id`
+  //   },
     
-  },
+  // },
 
   dimensions: {
     id: {
@@ -334,63 +334,63 @@ cube(`SolarInstallations`, {
     },
   },
 
-  pre_aggregations: {
-    monthlyRollup: {
-      measures: [
-        SolarInstallations.count,
-        SolarInstallations.totalCapacity,
-        SolarInstallations.completedProjects,
-        SolarInstallations.underConstructionProjects,
-        SolarInstallations.preConstructionProjects,
-        SolarInstallations.underDevelopmentProjects,
-      ],
-      dimensions: [
-        SolarInstallations.state,
-        SolarInstallations.statusId,
-        SolarInstallations.commissioning_month,
-      ],
-      timeDimension: SolarInstallations.commissioning_date,
-      granularity: `month`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   monthlyRollup: {
+  //     measures: [
+  //       SolarInstallations.count,
+  //       SolarInstallations.totalCapacity,
+  //       SolarInstallations.completedProjects,
+  //       SolarInstallations.underConstructionProjects,
+  //       SolarInstallations.preConstructionProjects,
+  //       SolarInstallations.underDevelopmentProjects,
+  //     ],
+  //     dimensions: [
+  //       SolarInstallations.state,
+  //       SolarInstallations.statusId,
+  //       SolarInstallations.commissioning_month,
+  //     ],
+  //     timeDimension: SolarInstallations.commissioning_date,
+  //     granularity: `month`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    stateRollup: {
-      measures: [
-        SolarInstallations.count,
-        SolarInstallations.totalCapacity,
-        SolarInstallations.averageCapacity,
-        SolarInstallations.completedCapacity,
-        SolarInstallations.underConstructionCapacity,
-        SolarInstallations.preConstructionCapacity,
-        SolarInstallations.underDevelopmentCapacity,
-      ],
-      dimensions: [
-        SolarInstallations.state,
-        SolarInstallations.statusId,
-        SolarInstallations.projectTypeId,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   stateRollup: {
+  //     measures: [
+  //       SolarInstallations.count,
+  //       SolarInstallations.totalCapacity,
+  //       SolarInstallations.averageCapacity,
+  //       SolarInstallations.completedCapacity,
+  //       SolarInstallations.underConstructionCapacity,
+  //       SolarInstallations.preConstructionCapacity,
+  //       SolarInstallations.underDevelopmentCapacity,
+  //     ],
+  //     dimensions: [
+  //       SolarInstallations.state,
+  //       SolarInstallations.statusId,
+  //       SolarInstallations.projectTypeId,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    developerRollup: {
-      measures: [
-        SolarInstallations.count,
-        SolarInstallations.totalCapacity,
-        SolarInstallations.completedProjects,
-        SolarInstallations.underConstructionProjects,
-      ],
-      dimensions: [
-        SolarInstallations.developer,
-        SolarInstallations.status,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   developerRollup: {
+  //     measures: [
+  //       SolarInstallations.count,
+  //       SolarInstallations.totalCapacity,
+  //       SolarInstallations.completedProjects,
+  //       SolarInstallations.underConstructionProjects,
+  //     ],
+  //     dimensions: [
+  //       SolarInstallations.developer,
+  //       SolarInstallations.status,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

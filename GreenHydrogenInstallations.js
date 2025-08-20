@@ -1,23 +1,17 @@
 cube(`GreenHydrogenInstallations`, {
-  sql: `
-    SELECT *
-    FROM public.green_hydrogen_trackers
-    WHERE status_id IN (
-      SELECT id FROM public.statuses
-    ) and project_type_id IN (
-      SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
-      JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
-      AND sub_tracker_masters.name = 'Green Hydrogen'
-    )
-  `,
-  // cube.js code
-  // contextToAppId: ({ securityContext }) => {
-  //   return `CUBE_APP_${securityContext.tenant_id}`
-  // }
-  // cube.js
-  // sql_table: `project_tracker_${COMPILE_CONTEXT.securityContext.tenant_id}`,
-  // sql_table: `public.solar_wind_hybrid_chart_view`,
-
+  // sql: `
+  //   SELECT *
+  //   FROM public.green_hydrogen_trackers
+  //   WHERE status_id IN (
+  //     SELECT id FROM public.statuses
+  //   ) and project_type_id IN (
+  //     SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
+  //     JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
+  //     AND sub_tracker_masters.name = 'Green Hydrogen'
+  //   )
+  // `,
+sql_table: `vw_greenhydrogeninstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`,
+  
   data_source: `default`,
 
   title: `GreenHydrogen Installations`,
