@@ -329,63 +329,63 @@ sql_table: `vw_energyinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`
     },
   },
 
-  pre_aggregations: {
-    monthlyRollup: {
-      measures: [
-        EnergyInstallations.count,
-        EnergyInstallations.totalCapacity,
-        EnergyInstallations.completedProjects,
-        EnergyInstallations.underConstructionProjects,
-        EnergyInstallations.preConstructionProjects,
-        EnergyInstallations.underDevelopmentProjects,
-      ],
-      dimensions: [
-        EnergyInstallations.state,
-        EnergyInstallations.statusId,
-        EnergyInstallations.commissioning_month,
-      ],
-      timeDimension: EnergyInstallations.commissioning_date,
-      granularity: `month`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   monthlyRollup: {
+  //     measures: [
+  //       EnergyInstallations.count,
+  //       EnergyInstallations.totalCapacity,
+  //       EnergyInstallations.completedProjects,
+  //       EnergyInstallations.underConstructionProjects,
+  //       EnergyInstallations.preConstructionProjects,
+  //       EnergyInstallations.underDevelopmentProjects,
+  //     ],
+  //     dimensions: [
+  //       EnergyInstallations.state,
+  //       EnergyInstallations.statusId,
+  //       EnergyInstallations.commissioning_month,
+  //     ],
+  //     timeDimension: EnergyInstallations.commissioning_date,
+  //     granularity: `month`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    stateRollup: {
-      measures: [
-        EnergyInstallations.count,
-        EnergyInstallations.totalCapacity,
-        EnergyInstallations.averageCapacity,
-        EnergyInstallations.completedCapacity,
-        EnergyInstallations.underConstructionCapacity,
-        EnergyInstallations.preConstructionCapacity,
-        EnergyInstallations.underDevelopmentCapacity,
-      ],
-      dimensions: [
-        EnergyInstallations.state,
-        EnergyInstallations.statusId,
-        EnergyInstallations.projectTypeId,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   stateRollup: {
+  //     measures: [
+  //       EnergyInstallations.count,
+  //       EnergyInstallations.totalCapacity,
+  //       EnergyInstallations.averageCapacity,
+  //       EnergyInstallations.completedCapacity,
+  //       EnergyInstallations.underConstructionCapacity,
+  //       EnergyInstallations.preConstructionCapacity,
+  //       EnergyInstallations.underDevelopmentCapacity,
+  //     ],
+  //     dimensions: [
+  //       EnergyInstallations.state,
+  //       EnergyInstallations.statusId,
+  //       EnergyInstallations.projectTypeId,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    developerRollup: {
-      measures: [
-        EnergyInstallations.count,
-        EnergyInstallations.totalCapacity,
-        EnergyInstallations.completedProjects,
-        EnergyInstallations.underConstructionProjects,
-      ],
-      dimensions: [
-        EnergyInstallations.developer,
-        EnergyInstallations.status,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   developerRollup: {
+  //     measures: [
+  //       EnergyInstallations.count,
+  //       EnergyInstallations.totalCapacity,
+  //       EnergyInstallations.completedProjects,
+  //       EnergyInstallations.underConstructionProjects,
+  //     ],
+  //     dimensions: [
+  //       EnergyInstallations.developer,
+  //       EnergyInstallations.status,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

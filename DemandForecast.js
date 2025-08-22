@@ -345,39 +345,39 @@ cube(`DemandForecast`, {
     }
   },
   
-  pre_aggregations: {
-    yearlyForecast: {
-      measures: [
-        DemandForecast.annualRooftopSolarInstallations,
-        DemandForecast.annualLargeScaleSolarInstallations,
-        DemandForecast.cumulativeSolarInstallations,
-        DemandForecast.totalAnnualInstallations,
-        DemandForecast.count
-      ],
-      dimensions: [
-        DemandForecast.year,
-        DemandForecast.forecast,
-        DemandForecast.forecastType
-      ],
-      refreshKey: {
-        every: `1 hour`
-      }
-    },
+  // pre_aggregations: {
+  //   yearlyForecast: {
+  //     measures: [
+  //       DemandForecast.annualRooftopSolarInstallations,
+  //       DemandForecast.annualLargeScaleSolarInstallations,
+  //       DemandForecast.cumulativeSolarInstallations,
+  //       DemandForecast.totalAnnualInstallations,
+  //       DemandForecast.count
+  //     ],
+  //     dimensions: [
+  //       DemandForecast.year,
+  //       DemandForecast.forecast,
+  //       DemandForecast.forecastType
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`
+  //     }
+  //   },
     
-    forecastTrends: {
-      measures: [
-        DemandForecast.avgRooftopSolarInstallations,
-        DemandForecast.avgLargeScaleSolarInstallations,
-        DemandForecast.rooftopProportion,
-        DemandForecast.largeScaleProportion
-      ],
-      dimensions: [
-        DemandForecast.yearRange,
-        DemandForecast.forecastType
-      ],
-      refreshKey: {
-        every: `4 hours`
-      }
-    }
-  }
+  //   forecastTrends: {
+  //     measures: [
+  //       DemandForecast.avgRooftopSolarInstallations,
+  //       DemandForecast.avgLargeScaleSolarInstallations,
+  //       DemandForecast.rooftopProportion,
+  //       DemandForecast.largeScaleProportion
+  //     ],
+  //     dimensions: [
+  //       DemandForecast.yearRange,
+  //       DemandForecast.forecastType
+  //     ],
+  //     refreshKey: {
+  //       every: `4 hours`
+  //     }
+  //   }
+  // }
 });

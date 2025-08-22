@@ -151,52 +151,52 @@ sql_table: `vw_electrolyzerinstallations_${COMPILE_CONTEXT.securityContext.tenan
     },
   },
 
-  pre_aggregations: {
-    monthlyRollup: {
-      measures: [
-        ElectrolyzerInstallations.count,
-        ElectrolyzerInstallations.totalCapacity,
-      ],
-      dimensions: [
-        ElectrolyzerInstallations.state,
-        ElectrolyzerInstallations.statusId,
-      ],
-      timeDimension: ElectrolyzerInstallations.commissioning_date,
-      granularity: `month`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   monthlyRollup: {
+  //     measures: [
+  //       ElectrolyzerInstallations.count,
+  //       ElectrolyzerInstallations.totalCapacity,
+  //     ],
+  //     dimensions: [
+  //       ElectrolyzerInstallations.state,
+  //       ElectrolyzerInstallations.statusId,
+  //     ],
+  //     timeDimension: ElectrolyzerInstallations.commissioning_date,
+  //     granularity: `month`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    stateRollup: {
-      measures: [
-        ElectrolyzerInstallations.count,
-        ElectrolyzerInstallations.totalCapacity,
-        ElectrolyzerInstallations.completedCapacity,
-      ],
-      dimensions: [
-        ElectrolyzerInstallations.state,
-        ElectrolyzerInstallations.statusId,
-        ElectrolyzerInstallations.projectTypeId,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   stateRollup: {
+  //     measures: [
+  //       ElectrolyzerInstallations.count,
+  //       ElectrolyzerInstallations.totalCapacity,
+  //       ElectrolyzerInstallations.completedCapacity,
+  //     ],
+  //     dimensions: [
+  //       ElectrolyzerInstallations.state,
+  //       ElectrolyzerInstallations.statusId,
+  //       ElectrolyzerInstallations.projectTypeId,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    developerRollup: {
-      measures: [
-        ElectrolyzerInstallations.count,
-        ElectrolyzerInstallations.totalCapacity,
-      ],
-      dimensions: [
-        ElectrolyzerInstallations.developer,
-        ElectrolyzerInstallations.status,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   developerRollup: {
+  //     measures: [
+  //       ElectrolyzerInstallations.count,
+  //       ElectrolyzerInstallations.totalCapacity,
+  //     ],
+  //     dimensions: [
+  //       ElectrolyzerInstallations.developer,
+  //       ElectrolyzerInstallations.status,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

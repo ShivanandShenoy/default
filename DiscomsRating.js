@@ -416,63 +416,63 @@ cube(`DiscomsRating`, {
     },
   },
 
-  pre_aggregations: {
-    yearlyStatePerformance: {
-      measures: [
-        DiscomsRating.count,
-        DiscomsRating.uniqueUtilities,
-        DiscomsRating.avgBillingEfficiency,
-        DiscomsRating.avgCollectionEfficiency,
-        DiscomsRating.avgATCLosses,
-        DiscomsRating.avgRatingScore,
-        DiscomsRating.highPerformers,
-        DiscomsRating.lowPerformers,
-      ],
-      dimensions: [
-        DiscomsRating.stateId,
-        DiscomsRating.year,
-        DiscomsRating.ratingCategory,
-      ],
-      timeDimension: DiscomsRating.yearDate,
-      granularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   yearlyStatePerformance: {
+  //     measures: [
+  //       DiscomsRating.count,
+  //       DiscomsRating.uniqueUtilities,
+  //       DiscomsRating.avgBillingEfficiency,
+  //       DiscomsRating.avgCollectionEfficiency,
+  //       DiscomsRating.avgATCLosses,
+  //       DiscomsRating.avgRatingScore,
+  //       DiscomsRating.highPerformers,
+  //       DiscomsRating.lowPerformers,
+  //     ],
+  //     dimensions: [
+  //       DiscomsRating.stateId,
+  //       DiscomsRating.year,
+  //       DiscomsRating.ratingCategory,
+  //     ],
+  //     timeDimension: DiscomsRating.yearDate,
+  //     granularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    utilityPerformanceTrends: {
-      measures: [
-        DiscomsRating.avgBillingEfficiency,
-        DiscomsRating.avgCollectionEfficiency,
-        DiscomsRating.avgATCLosses,
-        DiscomsRating.weightedEfficiency,
-        DiscomsRating.avgAcsArrGap,
-      ],
-      dimensions: [
-        DiscomsRating.utilityId,
-        DiscomsRating.year,
-        DiscomsRating.rating,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   utilityPerformanceTrends: {
+  //     measures: [
+  //       DiscomsRating.avgBillingEfficiency,
+  //       DiscomsRating.avgCollectionEfficiency,
+  //       DiscomsRating.avgATCLosses,
+  //       DiscomsRating.weightedEfficiency,
+  //       DiscomsRating.avgAcsArrGap,
+  //     ],
+  //     dimensions: [
+  //       DiscomsRating.utilityId,
+  //       DiscomsRating.year,
+  //       DiscomsRating.rating,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    nationalPerformanceSummary: {
-      measures: [
-        DiscomsRating.uniqueUtilities,
-        DiscomsRating.uniqueStates,
-        DiscomsRating.avgBillingEfficiency,
-        DiscomsRating.avgCollectionEfficiency,
-        DiscomsRating.avgATCLosses,
-        DiscomsRating.totalAcsArrGap,
-        DiscomsRating.positiveAcsArrGap,
-        DiscomsRating.negativeAcsArrGap,
-      ],
-      dimensions: [DiscomsRating.year],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   nationalPerformanceSummary: {
+  //     measures: [
+  //       DiscomsRating.uniqueUtilities,
+  //       DiscomsRating.uniqueStates,
+  //       DiscomsRating.avgBillingEfficiency,
+  //       DiscomsRating.avgCollectionEfficiency,
+  //       DiscomsRating.avgATCLosses,
+  //       DiscomsRating.totalAcsArrGap,
+  //       DiscomsRating.positiveAcsArrGap,
+  //       DiscomsRating.negativeAcsArrGap,
+  //     ],
+  //     dimensions: [DiscomsRating.year],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

@@ -394,62 +394,62 @@ FROM (
     },
   },
 
-  pre_aggregations: {
-    quarterlyStateRollup: {
-      measures: [
-        PowerMix.totalGeneration,
-        PowerMix.totalThermalGeneration,
-        PowerMix.totalRenewableGeneration,
-        PowerMix.totalSolarGeneration,
-        PowerMix.windGeneration,
-        PowerMix.renewablePercentage,
-      ],
-      dimensions: [PowerMix.stateId, PowerMix.yearQuarter],
-      timeDimension: PowerMix.quarterDate,
-      granularity: `quarter`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   quarterlyStateRollup: {
+  //     measures: [
+  //       PowerMix.totalGeneration,
+  //       PowerMix.totalThermalGeneration,
+  //       PowerMix.totalRenewableGeneration,
+  //       PowerMix.totalSolarGeneration,
+  //       PowerMix.windGeneration,
+  //       PowerMix.renewablePercentage,
+  //     ],
+  //     dimensions: [PowerMix.stateId, PowerMix.yearQuarter],
+  //     timeDimension: PowerMix.quarterDate,
+  //     granularity: `quarter`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    yearlyNationalRollup: {
-      measures: [
-        PowerMix.totalGeneration,
-        PowerMix.coalGeneration,
-        PowerMix.nuclearGeneration,
-        PowerMix.hydroGeneration,
-        PowerMix.windGeneration,
-        PowerMix.totalSolarGeneration,
-        PowerMix.totalRenewableGeneration,
-        PowerMix.renewablePercentage,
-      ],
-      dimensions: [PowerMix.year],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   yearlyNationalRollup: {
+  //     measures: [
+  //       PowerMix.totalGeneration,
+  //       PowerMix.coalGeneration,
+  //       PowerMix.nuclearGeneration,
+  //       PowerMix.hydroGeneration,
+  //       PowerMix.windGeneration,
+  //       PowerMix.totalSolarGeneration,
+  //       PowerMix.totalRenewableGeneration,
+  //       PowerMix.renewablePercentage,
+  //     ],
+  //     dimensions: [PowerMix.year],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    sourceTypeRollup: {
-      measures: [
-        PowerMix.coalGeneration,
-        PowerMix.ligniteGeneration,
-        PowerMix.gasGeneration,
-        PowerMix.dieselGeneration,
-        PowerMix.nuclearGeneration,
-        PowerMix.hydroGeneration,
-        PowerMix.windGeneration,
-        PowerMix.largeScaleSolarGeneration,
-        PowerMix.rooftopSolarGeneration,
-        PowerMix.smallHydroGeneration,
-        PowerMix.bagasseCoGenGeneration,
-        PowerMix.wasteToEnergyGeneration,
-        PowerMix.nonBagasseCaptiveGeneration,
-      ],
-      dimensions: [PowerMix.stateId, PowerMix.yearQuarter],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   sourceTypeRollup: {
+  //     measures: [
+  //       PowerMix.coalGeneration,
+  //       PowerMix.ligniteGeneration,
+  //       PowerMix.gasGeneration,
+  //       PowerMix.dieselGeneration,
+  //       PowerMix.nuclearGeneration,
+  //       PowerMix.hydroGeneration,
+  //       PowerMix.windGeneration,
+  //       PowerMix.largeScaleSolarGeneration,
+  //       PowerMix.rooftopSolarGeneration,
+  //       PowerMix.smallHydroGeneration,
+  //       PowerMix.bagasseCoGenGeneration,
+  //       PowerMix.wasteToEnergyGeneration,
+  //       PowerMix.nonBagasseCaptiveGeneration,
+  //     ],
+  //     dimensions: [PowerMix.stateId, PowerMix.yearQuarter],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

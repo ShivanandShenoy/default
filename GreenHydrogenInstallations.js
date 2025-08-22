@@ -151,52 +151,52 @@ sql_table: `vw_greenhydrogeninstallations_${COMPILE_CONTEXT.securityContext.tena
     },
   },
 
-  pre_aggregations: {
-    monthlyRollup: {
-      measures: [
-        GreenHydrogenInstallations.count,
-        GreenHydrogenInstallations.totalCapacity,
-      ],
-      dimensions: [
-        GreenHydrogenInstallations.state,
-        GreenHydrogenInstallations.statusId,
-      ],
-      timeDimension: GreenHydrogenInstallations.commissioning_date,
-      granularity: `month`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   monthlyRollup: {
+  //     measures: [
+  //       GreenHydrogenInstallations.count,
+  //       GreenHydrogenInstallations.totalCapacity,
+  //     ],
+  //     dimensions: [
+  //       GreenHydrogenInstallations.state,
+  //       GreenHydrogenInstallations.statusId,
+  //     ],
+  //     timeDimension: GreenHydrogenInstallations.commissioning_date,
+  //     granularity: `month`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    stateRollup: {
-      measures: [
-        GreenHydrogenInstallations.count,
-        GreenHydrogenInstallations.totalCapacity,
-        GreenHydrogenInstallations.completedCapacity,
-      ],
-      dimensions: [
-        GreenHydrogenInstallations.state,
-        GreenHydrogenInstallations.statusId,
-        GreenHydrogenInstallations.projectTypeId,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   stateRollup: {
+  //     measures: [
+  //       GreenHydrogenInstallations.count,
+  //       GreenHydrogenInstallations.totalCapacity,
+  //       GreenHydrogenInstallations.completedCapacity,
+  //     ],
+  //     dimensions: [
+  //       GreenHydrogenInstallations.state,
+  //       GreenHydrogenInstallations.statusId,
+  //       GreenHydrogenInstallations.projectTypeId,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    developerRollup: {
-      measures: [
-        GreenHydrogenInstallations.count,
-        GreenHydrogenInstallations.totalCapacity,
-      ],
-      dimensions: [
-        GreenHydrogenInstallations.developer,
-        GreenHydrogenInstallations.status,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   developerRollup: {
+  //     measures: [
+  //       GreenHydrogenInstallations.count,
+  //       GreenHydrogenInstallations.totalCapacity,
+  //     ],
+  //     dimensions: [
+  //       GreenHydrogenInstallations.developer,
+  //       GreenHydrogenInstallations.status,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

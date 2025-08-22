@@ -532,60 +532,60 @@ cube(`ProjectTrackerMaster`, {
     },
   },
 
-  pre_aggregations: {
-    stateMonthlyRollup: {
-      measures: [
-        ProjectTrackerMaster.count,
-        ProjectTrackerMaster.totalSolarCapacity,
-        ProjectTrackerMaster.totalWindCapacity,
-        ProjectTrackerMaster.totalBessStorageCapacity,
-        ProjectTrackerMaster.operationalSolarCapacity,
-        ProjectTrackerMaster.underConstructionSolarCapacity,
-      ],
-      dimensions: [
-        ProjectTrackerMaster.locationStateId,
-        ProjectTrackerMaster.statusId,
-        ProjectTrackerMaster.projectTypeId,
-        ProjectTrackerMaster.commissioningMonth,
-      ],
-      timeDimension: ProjectTrackerMaster.commissionedDate,
-      granularity: `month`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   stateMonthlyRollup: {
+  //     measures: [
+  //       ProjectTrackerMaster.count,
+  //       ProjectTrackerMaster.totalSolarCapacity,
+  //       ProjectTrackerMaster.totalWindCapacity,
+  //       ProjectTrackerMaster.totalBessStorageCapacity,
+  //       ProjectTrackerMaster.operationalSolarCapacity,
+  //       ProjectTrackerMaster.underConstructionSolarCapacity,
+  //     ],
+  //     dimensions: [
+  //       ProjectTrackerMaster.locationStateId,
+  //       ProjectTrackerMaster.statusId,
+  //       ProjectTrackerMaster.projectTypeId,
+  //       ProjectTrackerMaster.commissioningMonth,
+  //     ],
+  //     timeDimension: ProjectTrackerMaster.commissionedDate,
+  //     granularity: `month`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    developerRollup: {
-      measures: [
-        ProjectTrackerMaster.count,
-        ProjectTrackerMaster.totalSolarCapacity,
-        ProjectTrackerMaster.totalWindCapacity,
-        ProjectTrackerMaster.averageProjectCost,
-      ],
-      dimensions: [
-        ProjectTrackerMaster.developerId,
-        ProjectTrackerMaster.statusId,
-        ProjectTrackerMaster.projectTypeId,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   developerRollup: {
+  //     measures: [
+  //       ProjectTrackerMaster.count,
+  //       ProjectTrackerMaster.totalSolarCapacity,
+  //       ProjectTrackerMaster.totalWindCapacity,
+  //       ProjectTrackerMaster.averageProjectCost,
+  //     ],
+  //     dimensions: [
+  //       ProjectTrackerMaster.developerId,
+  //       ProjectTrackerMaster.statusId,
+  //       ProjectTrackerMaster.projectTypeId,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    kpiRollup: {
-      measures: [
-        ProjectTrackerMaster.totalPipeline,
-        ProjectTrackerMaster.totalInOperation,
-        ProjectTrackerMaster.preConstructionSolarCapacity,
-        ProjectTrackerMaster.underDevelopmentSolarCapacity,
-        ProjectTrackerMaster.centralSolarCapacity,
-        ProjectTrackerMaster.stateSolarCapacity,
-        ProjectTrackerMaster.openAccessSolarCapacity,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   kpiRollup: {
+  //     measures: [
+  //       ProjectTrackerMaster.totalPipeline,
+  //       ProjectTrackerMaster.totalInOperation,
+  //       ProjectTrackerMaster.preConstructionSolarCapacity,
+  //       ProjectTrackerMaster.underDevelopmentSolarCapacity,
+  //       ProjectTrackerMaster.centralSolarCapacity,
+  //       ProjectTrackerMaster.stateSolarCapacity,
+  //       ProjectTrackerMaster.openAccessSolarCapacity,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

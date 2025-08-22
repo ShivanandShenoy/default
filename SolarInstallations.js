@@ -23,28 +23,28 @@ cube(`SolarInstallations`, {
   title: `Solar Installations`,
   description: `Solar installation projects with capacity, status, and location information`,
 
-  // joins: {
-  //   States: {
-  //     relationship: `belongsTo`,
-  //     sql: `${CUBE}.solar_state_id = ${States}.id`
-  //   },
+  joins: {
+    States: {
+      relationship: `belongsTo`,
+      sql: `${CUBE}.solar_state_id = ${States}.id`
+    },
     
-  //   Status: {
-  //     relationship: `belongsTo`,
-  //     sql: `${CUBE}.status_id = ${Status}.id`
-  //   },
+    Status: {
+      relationship: `belongsTo`,
+      sql: `${CUBE}.status_id = ${Status}.id`
+    },
     
-  //   ProjectType: {
-  //     relationship: `belongsTo`,
-  //     sql: `${CUBE}.project_type_id = ${ProjectType}.id`
-  //   },
+    ProjectType: {
+      relationship: `belongsTo`,
+      sql: `${CUBE}.project_type_id = ${ProjectType}.id`
+    },
     
-  //   ProjectCategory: {
-  //     relationship: `belongsTo`,
-  //     sql: `${CUBE}.project_category_id = ${ProjectCategory}.id`
-  //   },
+    ProjectCategory: {
+      relationship: `belongsTo`,
+      sql: `${CUBE}.project_category_id = ${ProjectCategory}.id`
+    },
     
-  // },
+  },
 
   dimensions: {
     id: {

@@ -329,63 +329,63 @@ cube(`HybridInstallations`, {
     },
   },
 
-  pre_aggregations: {
-    monthlyRollup: {
-      measures: [
-        HybridInstallations.count,
-        HybridInstallations.totalCapacity,
-        HybridInstallations.completedProjects,
-        HybridInstallations.underConstructionProjects,
-        HybridInstallations.preConstructionProjects,
-        HybridInstallations.underDevelopmentProjects,
-      ],
-      dimensions: [
-        HybridInstallations.state,
-        HybridInstallations.statusId,
-        HybridInstallations.commissioning_month,
-      ],
-      timeDimension: HybridInstallations.commissioning_date,
-      granularity: `month`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   monthlyRollup: {
+  //     measures: [
+  //       HybridInstallations.count,
+  //       HybridInstallations.totalCapacity,
+  //       HybridInstallations.completedProjects,
+  //       HybridInstallations.underConstructionProjects,
+  //       HybridInstallations.preConstructionProjects,
+  //       HybridInstallations.underDevelopmentProjects,
+  //     ],
+  //     dimensions: [
+  //       HybridInstallations.state,
+  //       HybridInstallations.statusId,
+  //       HybridInstallations.commissioning_month,
+  //     ],
+  //     timeDimension: HybridInstallations.commissioning_date,
+  //     granularity: `month`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    stateRollup: {
-      measures: [
-        HybridInstallations.count,
-        HybridInstallations.totalCapacity,
-        HybridInstallations.averageCapacity,
-        HybridInstallations.completedCapacity,
-        HybridInstallations.underConstructionCapacity,
-        HybridInstallations.preConstructionCapacity,
-        HybridInstallations.underDevelopmentCapacity,
-      ],
-      dimensions: [
-        HybridInstallations.state,
-        HybridInstallations.statusId,
-        HybridInstallations.projectTypeId,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   stateRollup: {
+  //     measures: [
+  //       HybridInstallations.count,
+  //       HybridInstallations.totalCapacity,
+  //       HybridInstallations.averageCapacity,
+  //       HybridInstallations.completedCapacity,
+  //       HybridInstallations.underConstructionCapacity,
+  //       HybridInstallations.preConstructionCapacity,
+  //       HybridInstallations.underDevelopmentCapacity,
+  //     ],
+  //     dimensions: [
+  //       HybridInstallations.state,
+  //       HybridInstallations.statusId,
+  //       HybridInstallations.projectTypeId,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    developerRollup: {
-      measures: [
-        HybridInstallations.count,
-        HybridInstallations.totalCapacity,
-        HybridInstallations.completedProjects,
-        HybridInstallations.underConstructionProjects,
-      ],
-      dimensions: [
-        HybridInstallations.developer,
-        HybridInstallations.status,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   developerRollup: {
+  //     measures: [
+  //       HybridInstallations.count,
+  //       HybridInstallations.totalCapacity,
+  //       HybridInstallations.completedProjects,
+  //       HybridInstallations.underConstructionProjects,
+  //     ],
+  //     dimensions: [
+  //       HybridInstallations.developer,
+  //       HybridInstallations.status,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

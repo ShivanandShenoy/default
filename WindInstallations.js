@@ -314,63 +314,63 @@ sql_table: `vw_windinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`,
 
   },
 
-  pre_aggregations: {
-    monthlyRollup: {
-      measures: [
-        WindInstallations.count,
-        WindInstallations.totalCapacity,
-        WindInstallations.completedProjects,
-        WindInstallations.underConstructionProjects,
-        WindInstallations.preConstructionProjects,
-        WindInstallations.underDevelopmentProjects,
-      ],
-      dimensions: [
-        WindInstallations.state,
-        WindInstallations.statusId,
-        WindInstallations.commissioning_month,
-      ],
-      timeDimension: WindInstallations.commissioning_date,
-      granularity: `month`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  // pre_aggregations: {
+  //   monthlyRollup: {
+  //     measures: [
+  //       WindInstallations.count,
+  //       WindInstallations.totalCapacity,
+  //       WindInstallations.completedProjects,
+  //       WindInstallations.underConstructionProjects,
+  //       WindInstallations.preConstructionProjects,
+  //       WindInstallations.underDevelopmentProjects,
+  //     ],
+  //     dimensions: [
+  //       WindInstallations.state,
+  //       WindInstallations.statusId,
+  //       WindInstallations.commissioning_month,
+  //     ],
+  //     timeDimension: WindInstallations.commissioning_date,
+  //     granularity: `month`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    stateRollup: {
-      measures: [
-        WindInstallations.count,
-        WindInstallations.totalCapacity,
-        WindInstallations.averageCapacity,
-        WindInstallations.completedCapacity,
-        WindInstallations.underConstructionCapacity,
-        WindInstallations.preConstructionCapacity,
-        WindInstallations.underDevelopmentCapacity,
-      ],
-      dimensions: [
-        WindInstallations.state,
-        WindInstallations.statusId,
-        WindInstallations.projectTypeId,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
+  //   stateRollup: {
+  //     measures: [
+  //       WindInstallations.count,
+  //       WindInstallations.totalCapacity,
+  //       WindInstallations.averageCapacity,
+  //       WindInstallations.completedCapacity,
+  //       WindInstallations.underConstructionCapacity,
+  //       WindInstallations.preConstructionCapacity,
+  //       WindInstallations.underDevelopmentCapacity,
+  //     ],
+  //     dimensions: [
+  //       WindInstallations.state,
+  //       WindInstallations.statusId,
+  //       WindInstallations.projectTypeId,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
 
-    developerRollup: {
-      measures: [
-        WindInstallations.count,
-        WindInstallations.totalCapacity,
-        WindInstallations.completedProjects,
-        WindInstallations.underConstructionProjects,
-      ],
-      dimensions: [
-        WindInstallations.developer,
-        WindInstallations.status,
-      ],
-      refreshKey: {
-        every: `1 hour`,
-      },
-    },
-  },
+  //   developerRollup: {
+  //     measures: [
+  //       WindInstallations.count,
+  //       WindInstallations.totalCapacity,
+  //       WindInstallations.completedProjects,
+  //       WindInstallations.underConstructionProjects,
+  //     ],
+  //     dimensions: [
+  //       WindInstallations.developer,
+  //       WindInstallations.status,
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`,
+  //     },
+  //   },
+  // },
 });

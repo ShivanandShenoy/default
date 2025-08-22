@@ -164,42 +164,42 @@ cube(`PowerGeneration`, {
     }
   },
   
-  pre_aggregations: {
-    monthlyPowerMix: {
-      measures: [
-        PowerGeneration.totalGeneration,
-        PowerGeneration.renewableGeneration,
-        PowerGeneration.solarCapacity,
-        PowerGeneration.windCapacity,
-        PowerGeneration.bessCapacity,
-        PowerGeneration.count
-      ],
-      dimensions: [
-        PowerGeneration.state,
-        PowerGeneration.source,
-        PowerGeneration.month
-      ],
-      timeDimension: PowerGeneration.date,
-      granularity: `month`,
-      partitionGranularity: `year`,
-      refreshKey: {
-        every: `1 hour`
-      }
-    },
+  // pre_aggregations: {
+  //   monthlyPowerMix: {
+  //     measures: [
+  //       PowerGeneration.totalGeneration,
+  //       PowerGeneration.renewableGeneration,
+  //       PowerGeneration.solarCapacity,
+  //       PowerGeneration.windCapacity,
+  //       PowerGeneration.bessCapacity,
+  //       PowerGeneration.count
+  //     ],
+  //     dimensions: [
+  //       PowerGeneration.state,
+  //       PowerGeneration.source,
+  //       PowerGeneration.month
+  //     ],
+  //     timeDimension: PowerGeneration.date,
+  //     granularity: `month`,
+  //     partitionGranularity: `year`,
+  //     refreshKey: {
+  //       every: `1 hour`
+  //     }
+  //   },
     
-    statePowerMix: {
-      measures: [
-        PowerGeneration.totalGeneration,
-        PowerGeneration.renewableGeneration,
-        PowerGeneration.renewablePercentage
-      ],
-      dimensions: [
-        PowerGeneration.state,
-        PowerGeneration.source
-      ],
-      refreshKey: {
-        every: `1 hour`
-      }
-    }
-  }
+  //   statePowerMix: {
+  //     measures: [
+  //       PowerGeneration.totalGeneration,
+  //       PowerGeneration.renewableGeneration,
+  //       PowerGeneration.renewablePercentage
+  //     ],
+  //     dimensions: [
+  //       PowerGeneration.state,
+  //       PowerGeneration.source
+  //     ],
+  //     refreshKey: {
+  //       every: `1 hour`
+  //     }
+  //   }
+  // }
 });
