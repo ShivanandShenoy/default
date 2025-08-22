@@ -1,5 +1,5 @@
 cube(`PowerMix`, {
-  sql_table: `public.power_mixes`,
+  // sql_table: `public.power_mixes`,
   sql_table: `vw_powermix_${COMPILE_CONTEXT.securityContext.tenant_id}`,
 
   data_source: `default`,
