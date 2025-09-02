@@ -10,7 +10,6 @@ cube(`GreenHydrogenKPIs`, {
       sql: `capacity`,
       type: `sum`,
       title: `Total Pipeline (MW)`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses)` }],
       // No filters - includes all projects
     },
 

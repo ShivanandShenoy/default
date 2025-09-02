@@ -10,7 +10,6 @@ cube(`SolarKPIs`, {
       sql: `solar_capacity`,
       type: `sum`,
       title: `Total Pipeline (MW)`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE filter = 'true')` }],
       // No filters - includes all projects
     },
 

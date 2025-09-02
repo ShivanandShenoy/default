@@ -55,7 +55,7 @@ sql_table: `vw_energyinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`
     },
 
     status: {
-      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id AND filter = true)`,
+      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id)`,
       type: `string`,
       title: `Status`,
     },
@@ -143,7 +143,7 @@ sql_table: `vw_energyinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`
 
     // chart filters
     filterStatus: {
-      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id AND filter = true ORDER BY name ASC)`,
+      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id ORDER BY name ASC)`,
       type: `string`,
       title: `Filter Status`,
     },
@@ -193,11 +193,11 @@ sql_table: `vw_energyinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`
     },
 
     totalCapacity: {
-      sql: `bess_storage_capacity`,
+      sql: `COALESCE(${CUBE}.bess_storage_capacity, 0)`,
       type: `sum`,
       title: `Total Solar Capacity (MW)`,
       format: `number`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE filter = 'true')` }],
+      
     },
 
     averageCapacity: {

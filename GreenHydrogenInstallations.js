@@ -135,11 +135,10 @@ sql_table: `vw_greenhydrogeninstallations_${COMPILE_CONTEXT.securityContext.tena
     },
 
     totalCapacity: {
-      sql: `capacity`,
+      sql: `COALESCE(${CUBE}.capacity, 0)`,
       type: `sum`,
       title: `Total GreenHydrogen Capacity (MW)`,
       format: `number`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses)` }],
     },
 
     // Calculated measures

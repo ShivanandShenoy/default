@@ -10,7 +10,6 @@ cube(`HybridKPIs`, {
       sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
       type: `sum`,
       title: `Total Pipeline (MW)`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE filter = 'true')` }],
       // No filters - includes all projects
     },
 

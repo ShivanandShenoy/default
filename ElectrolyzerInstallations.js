@@ -135,11 +135,10 @@ sql_table: `vw_electrolyzerinstallations_${COMPILE_CONTEXT.securityContext.tenan
     },
 
     totalCapacity: {
-      sql: `capacity`,
+      sql: `COALESCE(${CUBE}.capacity, 0)`,
       type: `sum`,
       title: `Total Electrolyzer Capacity (MW)`,
       format: `number`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses)` }],
     },
 
     // Calculated measures

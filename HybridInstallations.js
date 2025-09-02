@@ -54,7 +54,7 @@ cube(`HybridInstallations`, {
     },
 
     status: {
-      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id AND filter = true)`,
+      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id)`,
       type: `string`,
       title: `Status`,
     },
@@ -143,7 +143,7 @@ cube(`HybridInstallations`, {
 
         // chart filters
     filterStatus: {
-      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id AND filter = true ORDER BY name ASC)`,
+      sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id ORDER BY name ASC)`,
       type: `string`,
       title: `Filter Status`,
     },
@@ -193,11 +193,10 @@ cube(`HybridInstallations`, {
     },
 
     totalCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `COALESCE(${CUBE}.solar_capacity+${CUBE}.bess_storage_capacity+${CUBE}.wind_capacity, 0)`,
       type: `sum`,
       title: `Total Solar Capacity (MW)`,
       format: `number`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE filter = 'true')` }],
     },
 
     averageCapacity: {
