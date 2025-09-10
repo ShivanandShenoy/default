@@ -1,16 +1,18 @@
 cube(`ElectrolyzerInstallations`, {
-  // sql: `
-  //   SELECT *
-  //   FROM public.green_hydrogen_trackers
-  //   WHERE status_id IN (
-  //     SELECT id FROM public.statuses
-  //   ) and project_type_id IN (
-  //     SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
-  //     JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
-  //     AND sub_tracker_masters.name = 'Electrolyzer'
-  //   )
-  // `,
-sql_table: `vw_electrolyzerinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`,
+  sql: `
+    SELECT *
+    FROM public.green_hydrogen_trackers
+    WHERE status_id IN (
+      SELECT status_sub_tracker_masters.status_id FROM status_sub_tracker_masters
+      JOIN sub_tracker_masters ON sub_tracker_masters.id = status_sub_tracker_masters.sub_tracker_master_id 
+      AND sub_tracker_masters.name = 'Electrolyzer'
+    ) and project_type_id IN (
+      SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
+      JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
+      AND sub_tracker_masters.name = 'Electrolyzer'
+    ) WHERE data_live = true
+  `,
+// sql_table: `vw_electrolyzerinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`,
 
   data_source: `default`,
 

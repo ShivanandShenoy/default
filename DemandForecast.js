@@ -1,6 +1,6 @@
 cube(`DemandForecast`, {
-  // sql_table: `public.demand_forecasts`,
-  sql_table: `vw_demandforecast_${COMPILE_CONTEXT.securityContext.tenant_id}`,
+  sql_table: `(SELECT * FROM public.demand_forecasts WHERE data_live = true)`,
+  // sql_table: `vw_demandforecast_${COMPILE_CONTEXT.securityContext.tenant_id}`,
   
   data_source: `default`,
   

@@ -1,21 +1,23 @@
 cube(`SolarInstallations`, {
-  // sql: `
-  //   SELECT *
-  //   FROM public.project_tracker_masters
-  //   WHERE status_id IN (
-  //     SELECT id FROM public.statuses WHERE filter = true
-  //   ) and project_type_id IN (
-  //     SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
-  //     JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
-  //     AND sub_tracker_masters.name = 'Large Scale Solar'
-  //   )
-  // `,
+  sql: `
+    SELECT *
+    FROM public.project_tracker_masters
+    WHERE status_id IN (
+      SELECT status_sub_tracker_masters.status_id FROM status_sub_tracker_masters
+      JOIN sub_tracker_masters ON sub_tracker_masters.id = status_sub_tracker_masters.sub_tracker_master_id 
+      AND sub_tracker_masters.name = 'Large Scale Solar'
+    ) and project_type_id IN (
+      SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
+      JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
+      AND sub_tracker_masters.name = 'Large Scale Solar'
+    ) WHERE data_live = true
+  `,
   // cube.js code
   // contextToAppId: ({ securityContext }) => {
   //   return `CUBE_APP_${securityContext.tenant_id}`
   // }
   // cube.js
-  sql_table: `vw_solarinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`,
+  // sql_table: `vw_solarinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}`,
   // sql_table: `public.solar_wind_hybrid_chart_view`,
 
   data_source: `default`,

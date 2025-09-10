@@ -1,6 +1,6 @@
 cube(`StatePVOverview`, {
-  // sql_table: `public.state_pv_overviews`,
-    sql_table: `vw_statepvoverview_${COMPILE_CONTEXT.securityContext.tenant_id}`,
+  sql_table: `(SELECT * FROM public.state_pv_overviews WHERE data_live = true)`,
+    // sql_table: `vw_statepvoverview_${COMPILE_CONTEXT.securityContext.tenant_id}`,
 
   data_source: `default`,
   
