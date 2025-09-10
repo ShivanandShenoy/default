@@ -2,7 +2,7 @@ cube(`SolarInstallations`, {
   sql: `
     SELECT *
     FROM public.project_tracker_masters
-    WHERE status_id IN (
+    WHERE to_regclass('vw_solarinstallations_${COMPILE_CONTEXT.securityContext.tenant_id}') IS NOT NULL AND status_id IN (
       SELECT status_sub_tracker_masters.status_id FROM status_sub_tracker_masters
       JOIN sub_tracker_masters ON sub_tracker_masters.id = status_sub_tracker_masters.sub_tracker_master_id 
       AND sub_tracker_masters.name = 'Large Scale Solar'
@@ -10,7 +10,7 @@ cube(`SolarInstallations`, {
       SELECT project_type_sub_tracker_masters.project_type_id FROM project_type_sub_tracker_masters
       JOIN sub_tracker_masters ON sub_tracker_masters.id = project_type_sub_tracker_masters.sub_tracker_master_id 
       AND sub_tracker_masters.name = 'Large Scale Solar'
-    ) WHERE data_live = true
+    ) AND data_live = true
   `,
   // cube.js code
   // contextToAppId: ({ securityContext }) => {
