@@ -116,6 +116,11 @@ cube(`GreenHydrogenInstallations`, {
       title: `Filter Developer`,
     },
 
+    commissioning_year: {
+      sql: `EXTRACT(YEAR FROM ${CUBE}.commissioned_date)`,
+      type: `number`,
+      title: `Commissioning Year`,
+    },
   },
 
   measures: {
