@@ -116,8 +116,10 @@ cube(`ElectrolyzerInstallations`, {
       title: `Filter Developer`,
     },
 
-      commissioning_year: {
-      sql: `EXTRACT(YEAR FROM ${CUBE}.commissioned_date)`,
+    commissioning_year: {
+      sql: `EXTRACT(
+              YEAR FROM COALESCE(${CUBE}.commissioned_date, ${CUBE}.expected_commissioning_date)
+            )`,
       type: `number`,
       title: `Commissioning Year`,
     },

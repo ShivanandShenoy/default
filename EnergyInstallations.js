@@ -126,7 +126,9 @@ cube(`EnergyInstallations`, {
 
     // Derived dimensions for better analysis
     commissioning_year: {
-      sql: `EXTRACT(YEAR FROM ${CUBE}.commisioned_date)`,
+      sql: `EXTRACT(
+              YEAR FROM COALESCE(${CUBE}.commisioned_date, ${CUBE}.estimated_commisioning_date)
+            )`,
       type: `number`,
       title: `Commissioning Year`,
     },
