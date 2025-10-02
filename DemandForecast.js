@@ -144,6 +144,12 @@ cube(`DemandForecast`, {
       format: `number`
     },
     
+    cumulativeRooftopSolarInstallations: {
+      sql: `cumulative_rooftop_solar_installations`,
+      type: `sum`,
+      title: `Cumulative rooftop Solar Installations (MW)`,
+      format: `number`
+    },
     // Calculated measures
     totalAnnualInstallations: {
       sql: `annual_rooftop_solar_installations + annual_large_scale_solar_installations`,
