@@ -97,6 +97,12 @@ cube(`GreenHydrogenInstallations`, {
       title: `State`,
     },
 
+    capacity: {
+      sql: `COALESCE(${CUBE}.capacity, 0)`,
+      type: `number`,
+      title: `Capacity`,
+    },
+
     // chart filters
     filterStatus: {
       sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id ORDER BY name ASC)`,

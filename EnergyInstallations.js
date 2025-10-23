@@ -145,6 +145,12 @@ cube(`EnergyInstallations`, {
       title: `Commissioning Month`,
     },
 
+    capacity: {
+      sql: `COALESCE(${CUBE}.bess_storage_capacity, 0)`,
+      type: `number`,
+      title: `Capacity`,
+    },
+
     // chart filters
     filterStatus: {
       sql: `(SELECT name FROM public.statuses WHERE id = ${CUBE}.status_id ORDER BY name ASC)`,
