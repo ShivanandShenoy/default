@@ -7,10 +7,16 @@ cube(`EnergyKPIs`, {
   measures: {
     // Total Pipeline
     totalPipeline: {
-      sql: `bess_storage_capacity`,
+      sql: `CASE 
+          WHEN ${CUBE}.status_id IN (
+            SELECT id FROM public.statuses 
+            WHERE name IN ('Under Development', 'Under Construction', 'Pre Construction')
+          )
+          THEN ${CUBE}.bess_storage_capacity
+          ELSE 0
+        END`,
       type: `sum`,
       title: `Total Pipeline (MW)`,
-      // No filters - includes all projects
     },
 
     // Project Stages

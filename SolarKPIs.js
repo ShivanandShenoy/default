@@ -7,10 +7,16 @@ cube(`SolarKPIs`, {
   measures: {
     // Total Pipeline
     totalPipeline: {
-      sql: `solar_capacity`,
+      sql: `CASE 
+          WHEN ${CUBE}.status_id IN (
+            SELECT id FROM public.statuses 
+            WHERE name IN ('Under Development', 'Under Construction', 'Pre Construction')
+          )
+          THEN ${CUBE}.solar_capacity
+          ELSE 0
+        END`,
       type: `sum`,
       title: `Total Pipeline (MW)`,
-      // No filters - includes all projects
     },
 
     // Project Stages
@@ -18,28 +24,44 @@ cube(`SolarKPIs`, {
       sql: `solar_capacity`,
       type: `sum`,
       title: `Total In-Operation (MW)`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'In-Operation')` }],
+      filters: [
+        {
+          sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'In-Operation')`,
+        },
+      ],
     },
 
     preConstruction: {
       sql: `solar_capacity`,
       type: `sum`,
       title: `Pre Construction (MW)`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Pre Construction')` }],
+      filters: [
+        {
+          sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Pre Construction')`,
+        },
+      ],
     },
 
     underDevelopment: {
       sql: `solar_capacity`,
       type: `sum`,
       title: `Under Development (MW)`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Development')` }],
+      filters: [
+        {
+          sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Development')`,
+        },
+      ],
     },
 
     underConstructionCapacity: {
       sql: `solar_capacity`,
       type: `sum`,
       title: `Under Construction (MW)`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Construction')` }],
+      filters: [
+        {
+          sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Construction')`,
+        },
+      ],
     },
 
     // Project Categories by Status
@@ -110,7 +132,11 @@ cube(`SolarKPIs`, {
 
     completedProjectsCount: {
       type: `count`,
-      filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Completed')` }],
+      filters: [
+        {
+          sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Completed')`,
+        },
+      ],
       title: `Completed Projects Count`,
     },
   },

@@ -7,10 +7,16 @@ cube(`WindKPIs`, {
   measures: {
     // Total Pipeline
     totalPipeline: {
-      sql: `wind_capacity_mw`,
+      sql: `CASE 
+          WHEN ${CUBE}.status_id IN (
+            SELECT id FROM public.statuses 
+            WHERE name IN ('Under Development', 'Under Construction', 'Pre Construction')
+          )
+          THEN ${CUBE}.wind_capacity_mw
+          ELSE 0
+        END`,
       type: `sum`,
       title: `Total Pipeline (MW)`,
-      // No filters - includes all projects
     },
 
     // Project Stages
