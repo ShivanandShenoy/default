@@ -12,7 +12,7 @@ cube(`HybridKPIs`, {
             SELECT id FROM public.statuses 
             WHERE name IN ('Under Development', 'Under Construction', 'Pre Construction')
           )
-          THEN ${CUBE}.solar_capacity+bess_storage_capacity+wind_capacity
+          THEN COALESCE(solar_capacity,0)+COALESCE(bess_storage_capacity,0)+COALESCE(wind_capacity,0)
           ELSE 0
         END`,
       type: `sum`,
