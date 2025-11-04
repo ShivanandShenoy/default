@@ -21,28 +21,28 @@ cube(`HybridKPIs`, {
 
     // Project Stages
     totalInOperation: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `COALESCE(solar_capacity,0)+COALESCE(bess_storage_capacity,0)+COALESCE(wind_capacity,0)`,
       type: `sum`,
       title: `Total In-Operation (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'In-Operation')` }],
     },
 
     preConstruction: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `COALESCE(solar_capacity,0)+COALESCE(bess_storage_capacity,0)+COALESCE(wind_capacity,0)`,
       type: `sum`,
       title: `Pre Construction (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Pre Construction')` }],
     },
 
     underDevelopment: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `COALESCE(solar_capacity,0)+COALESCE(bess_storage_capacity,0)+COALESCE(wind_capacity,0)`,
       type: `sum`,
       title: `Under Development (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Development')` }],
     },
 
     underConstructionCapacity: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `COALESCE(solar_capacity,0)+COALESCE(bess_storage_capacity,0)+COALESCE(wind_capacity,0)`,
       type: `sum`,
       title: `Under Construction (MW)`,
       filters: [{ sql: `${CUBE}.status_id IN (SELECT id FROM public.statuses WHERE name = 'Under Construction')` }],
@@ -50,7 +50,7 @@ cube(`HybridKPIs`, {
 
     // Project Categories by Status
     centralInOperation: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `COALESCE(solar_capacity,0)+COALESCE(bess_storage_capacity,0)+COALESCE(wind_capacity,0)`,
       type: `sum`,
       title: `Central In-Operation (MW)`,
       filters: [
@@ -61,7 +61,7 @@ cube(`HybridKPIs`, {
     },
 
     openAccessInOperation: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `COALESCE(solar_capacity,0)+COALESCE(bess_storage_capacity,0)+COALESCE(wind_capacity,0)`,
       type: `sum`,
       title: `Open Access In-Operation (MW)`,
       filters: [
@@ -72,7 +72,7 @@ cube(`HybridKPIs`, {
     },
 
     stateInOperation: {
-      sql: `solar_capacity+bess_storage_capacity+wind_capacity`,
+      sql: `COALESCE(solar_capacity,0)+COALESCE(bess_storage_capacity,0)+COALESCE(wind_capacity,0)`,
       type: `sum`,
       title: `State In-Operation (MW)`,
       filters: [
