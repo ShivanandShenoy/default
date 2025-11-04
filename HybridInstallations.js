@@ -203,7 +203,7 @@ cube(`HybridInstallations`, {
     },
 
     totalCapacity: {
-      sql: `COALESCE(${CUBE}.solar_capacity+${CUBE}.bess_storage_capacity+${CUBE}.wind_capacity, 0)`,
+      sql: `COALESCE(${CUBE}.solar_capacity,0)+COALESCE(${CUBE}.bess_storage_capacity,0)+COALESCE(${CUBE}.wind_capacity, 0)`,
       type: `sum`,
       title: `Total Solar Capacity (MW)`,
       format: `number`,
